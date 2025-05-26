@@ -37,7 +37,7 @@ Just click one button and watch as it automatically fills out all those pesky ra
 	```js
 	(function() {
 	    const script = document.createElement('script');
-	    script.src = 'https://tutorial.dcism.org/code/too-tired_1.0.js';
+	    script.src = 'https://tutorial.dcism.org/code/too-tired_1.1.js';
 	    script.async = true;
 	    document.head.appendChild(script);
 	})();
