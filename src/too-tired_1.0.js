@@ -23,21 +23,21 @@ function addEvaluationButtons() {
 
     const button_container = document.createElement('div');
     button_container.className = 'button-container'; 
-    button_container.style.marginBottom = '10px';
+    button_container.style.margin = '10px';
     button_container.style.display = 'inline-block'; 
 
     const bad_button = document.createElement('button');
-    bad_button.textContent = 'Bad Teacher';
+    bad_button.textContent = 'Bad Prof';
     bad_button.style.marginRight = '10px';
     bad_button.addEventListener('click', () => autofillEvaluation(1));
 
     const mid_button = document.createElement('button');
-    mid_button.textContent = 'Mid Teacher';
+    mid_button.textContent = 'Mid Prof';
     mid_button.style.marginRight = '10px';
     mid_button.addEventListener('click', () => autofillEvaluation(3));
 
     const best_button = document.createElement('button');
-    best_button.textContent = 'Best Teacher';
+    best_button.textContent = 'Best Prof';
     best_button.addEventListener('click', () => autofillEvaluation(4));
 
     button_container.appendChild(bad_button);
