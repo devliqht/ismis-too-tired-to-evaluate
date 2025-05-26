@@ -1,15 +1,15 @@
 /**
  * Adds evaluation buttons to the faculty information section of the page.
- * Creates three buttons (Bad Prof, Mid Prof, Best Prof) that when clicked
- * will automatically fill out the evaluation form with predefined ratings.
+ * Creates four buttons (Bad Prof, Mid Prof, Best Prof, Above-mid Prof) that when clicked
+ * will automatically fill out the evaluation form with predefined ratings and comments.
  * 
  * The buttons are inserted next to the faculty name in the sticky header.
- * Each button corresponds to a different rating level (1, 3, or 4).
+ * Each button corresponds to a different rating level (1, 3, or 4) and comment set.
  * 
  * @function addEvaluationButtons
  * @returns {void}
  * @author devliqht
- * @version 1.0
+ * @version 1.1
  */
 function addEvaluationButtons() {
     // the sticky div is where the faculty information is stored..
@@ -38,10 +38,17 @@ function addEvaluationButtons() {
 
     const best_button = document.createElement('button');
     best_button.textContent = 'Best Prof';
+    best_button.style.marginRight = '10px';
     best_button.addEventListener('click', () => autofillEvaluation(4));
+
+    const above_mid_button = document.createElement('button');
+    above_mid_button.textContent = 'Above-mid Prof';
+    above_mid_button.style.marginRight = '10px';
+    above_mid_button.addEventListener('click', () => autofillEvaluation(3.5));
 
     button_container.appendChild(bad_button);
     button_container.appendChild(mid_button);
+    button_container.appendChild(above_mid_button);
     button_container.appendChild(best_button);
 
     faculty_span.parentNode.insertBefore(button_container, faculty_span.nextSibling);
@@ -55,15 +62,16 @@ function addEvaluationButtons() {
             25: { second: 26, min: 9, max: 12 }, 26: { second: 27, min: 9, max: 12 }, 27: { second: 28, min: 9, max: 12 }, 28: { second: 29, min: 9, max: 12 }, 29: { second: 30, min: 9, max: 12 } // Student Outcomes
         };
 
+        // fill likert ratings
         for (let i = 0; i <= 29; i++) {
             const name = `response[${i}].Remarks`;
             const radios = document.getElementsByName(name);
             if (radios.length > 0) {
-                // map likertScore 1, 3, 4 to the category's score range
                 const { min, max, second } = category_offsets[i] || { min: 1, max: 4, second: 1 };
                 let mapped_score;
                 if (likert_score === 1) mapped_score = min; 
                 else if (likert_score === 3) mapped_score = Math.floor((min + max) / 2); 
+                else if (likert_score === 3.5) mapped_score = Math.floor((min + max + 1) / 2); 
                 else mapped_score = max; 
 
                 const expected_value = `${mapped_score},${second}`;
@@ -77,13 +85,56 @@ function addEvaluationButtons() {
             }
         }
 
+        const commentNames = ['comments[0].Remarks', 'comments[1].Remarks', 'comments[2].Remarks'];
+        const commentTextareas = commentNames.map(name => document.querySelector(`textarea[name="${name}"]`));
+        let likeBest, toImprove, overallExperience;
+
+        if (likert_score === 1) { 
+            likeBest = 'N/A';
+            toImprove = 'The teaching style';
+            overallExperience = 'Bad';
+            setRecommendation(false); 
+        } else if (likert_score === 3) { 
+            likeBest = 'N/A';
+            toImprove = 'Its okay';
+            overallExperience = 'OKAY';
+            setRecommendation(true); 
+        } else if (likert_score === 4) { 
+            likeBest = 'The teacher and the course';
+            toImprove = 'N/A';
+            overallExperience = 'Very good';
+            setRecommendation(true); 
+        } else if (likert_score === 3.5) { 
+            likeBest = 'N/A';
+            toImprove = 'Its okay';
+            overallExperience = 'OKAY';
+            setRecommendation(true); 
+        }
+
+        if (commentTextareas[0]) commentTextareas[0].value = likeBest || '';
+        if (commentTextareas[1]) commentTextareas[1].value = toImprove || '';
+        if (commentTextareas[2]) commentTextareas[2].value = overallExperience || '';
+
         // SATISFACTION RATING
         const satisfaction_name = 'response[30].Remarks';
         const satisfaction_radios = document.getElementsByName(satisfaction_name);
         if (satisfaction_radios.length > 0) {
-            let satisfaction_score = likert_score === 1 ? 1 : likert_score === 3 ? 5 : 10; 
+            let satisfaction_score = likert_score === 1 ? 1 : likert_score === 3 || likert_score === 3.5 ? 5 : 10; 
             satisfaction_radios.forEach(radio => {
                 if (radio.value.startsWith((satisfaction_score + 12).toString() + ',')) { 
+                    radio.checked = true;
+                }
+            });
+        }
+    }
+
+    function setRecommendation(checked) {
+        const recommendationRadios = document.getElementsByName('comments[3].Score');
+        if (recommendationRadios.length > 0) {
+            recommendationRadios.forEach(radio => {
+                if (checked && radio.value === '1') { 
+                    radio.checked = true;
+                } else if (!checked && radio.value === '2') { 
                     radio.checked = true;
                 }
             });
