@@ -15,7 +15,7 @@ I've created a simple javascript-script (?) that adds three magical buttons to y
 - 🚫 Bad Prof (1/4)
 
 - 😐 Mid Prof (2/4)
-- 
+  
 - 🙂 Above-Mid Prof (3/4)
 
 - ⭐ Best Prof (4/4)
