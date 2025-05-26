@@ -46,4 +46,6 @@ Just click one button and watch as it automatically fills out all those pesky ra
 	```
 	Why not ``raw.githubusercontent.com``? **CORS issue**.
 
+## You do have to paste the code **every time** you submit the evaluation form due to ISMIS' re-rendering nature.
+
 I know there are other methods such as code injectors (Tampermonkey, Greasemonkey, etc.) but tis' not really a serious thing. Enjoy.
