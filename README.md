@@ -29,7 +29,7 @@ Just click one button and watch as it automatically fills out all those pesky ra
 ## How to Use
 
 #### Method 1 (manual)
-1. Copy the entire code from ``src/too-tired_1.0.js``.
+1. Copy the entire code from ``src/too-tired_1.1.js``.
 2. Open Dev Tools when you are in the evaluation page and open the Console tab.
 3. Paste the code. It should run automatically.
 
