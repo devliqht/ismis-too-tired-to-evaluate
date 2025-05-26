@@ -10,7 +10,7 @@ Man I hate having to squint my eyes and to click those goddamn small radio butto
 
   
 
-I've created a simple javascript-script (?) that adds three magical buttons to your evaluation page:
+I've created a simple javascript-script (?) that adds FOUR magical buttons to your evaluation page:
 
 - 🚫 Bad Prof (1/4)
 
