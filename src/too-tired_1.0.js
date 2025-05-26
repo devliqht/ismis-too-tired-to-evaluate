@@ -6,7 +6,7 @@
  * The buttons are inserted next to the faculty name in the sticky header.
  * Each button corresponds to a different rating level (1, 3, or 4).
  * 
- * @function add_evaluation_buttons
+ * @function addEvaluationButtons
  * @returns {void}
  * @author devliqht
  * @version 1.0
